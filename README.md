@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/Logo.png" alt="drawing" width="500"/>
+  <img src=".assets/Logo.png" alt="drawing" width="500"/>
 </p>
 
 **MedAssistant-8B** is a LoRA fine-tuned LLM designed for advanced medical reasoning. The model is able to assist with medical diagnosis by providing detailed explanations in Chain of Thought (CoT). 
@@ -7,6 +7,7 @@
 - 🧠 Base Model: <a href="https://github.com/marketplace/models/azureml-meta/Meta-Llama-3-1-8B-Instruct">Llama-3.1-8B-Instruct</a>
 - 🗂️ Dataset: <a href="https://github.com/BioMistral/BioMistral">MedBooks-CoT-18</a> & <a href="HPAI-BSC/Medprompt-MedQA-CoT">MedQA-CoT</a>
 - 🛠️ LoRA Parameters: r=128, α=64
+- ⚙️ Hardware: 4 x A40 GPUs
 
 ## Model
 
@@ -16,16 +17,16 @@
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model = AutoModelForCausalLM.from_pretrained('rare-engineer/MedAssistant-8B', torch_dtype="auto", device_map="auto", use_safetensors= True)
+model = AutoModelForCausalLM.from_pretrained('rare-engineer/MedAssistant-8B',torch_dtype="auto",device_map="auto", use_safetensors= True)
 model.eval()
 
 tokenizer = AutoTokenizer.from_pretrained('rare-engineer/MedAssistant-8B', trust_remote_code=True, padding_side='left')
 
+user_instruction = "The following is a multiple-choice question about medical knowledge. Solve this in a step-by-step fashion, starting by summarizing the available information. Output a single option from the given options as the final answer."
 input_text = "A 17-year-old girl presents to the emergency department with a headache. The patient has had headaches in the past but this is the worst headache of her life. Her symptoms started yesterday and have been getting progressively worse. The patient states that the pain is mostly on the left side of her head. There has been a recent outbreak of measles at the patient’s school and the patient’s mother has been trying to give her daughter medicine to prevent her from getting sick. Her mother fears that her daughter may have caught measles. Her temperature is 98.6°F (37°C), blood pressure is 123/74 mmHg, pulse is 85/min, and respirations are 13/min. On exam, the patient is an obese girl who is clutching her head with the light in the room turned off. Her neurological exam is within normal limits. Fundoscopic exam reveals mild bilateral papilledema. An MRI of the head is obtained and reveals cerebral edema. A lumbar puncture reveals an increased opening pressure with a normal glucose level. Which of the following is the most likely diagnosis? A: Bacterial meningitis, B: Fat-soluble vitamin overuse, C: Migraine headache, D: Subarachnoid hemorrhage, E: Viral meningitis"
-messages = [{"role": "user", "content": input_text}]
 
-inputs = tokenizer(tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True), return_tensors="pt").to(model.device)
-outputs = model.generate(**inputs, max_new_tokens=2048)
+inputs = tokenizer([user_instruction + '\n'+ input_text], return_tensors="pt").to(model.device)
+outputs = model.generate(**inputs, max_new_tokens=1024)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ```
 
@@ -79,7 +80,4 @@ torchrun --nproc_per_node=4 train.py \
   Case Study on Medbullets Benchmark. **MedAssistant-8B** generates accurate reasoning with reliable knowledge.
 
 <img src="./assets/Case Study.png" alt="case_v6" style="zoom: 100%;" />
-
-
-
 
