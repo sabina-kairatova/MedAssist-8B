@@ -5,7 +5,7 @@
 **MedAssistant-8B** is a LoRA fine-tuned LLM designed for advanced medical reasoning. The model is able to assist with medical diagnosis by providing detailed explanations in Chain of Thought (CoT). 
 
 - 🧠 Base Model: <a href="https://github.com/marketplace/models/azureml-meta/Meta-Llama-3-1-8B-Instruct">Llama-3.1-8B-Instruct</a>
-- 🗂️ Dataset: <a href="https://github.com/BioMistral/BioMistral">MedBooks-CoT-18</a> & <a href="HPAI-BSC/Medprompt-MedQA-CoT">MedQA-CoT</a>
+- 🗂️ Dataset: <a href="https://huggingface.co/datasets/dmis-lab/meerkat-instructions/blob/main/medbooks-18-cot.jsonl">MedBooks-CoT-18</a> & <a href="https://huggingface.co/datasets/HPAI-BSC/Medprompt-MedQA-CoT">MedQA-CoT</a>
 - 🛠️ LoRA Parameters: r=128, α=64
 - ⚙️ Hardware: 4 x A40 GPUs
 
