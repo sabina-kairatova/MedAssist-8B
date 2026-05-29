@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/logo.png" alt="drawing" width="500"/>
+  <img src="./assets/Logo.png" alt="drawing" width="500"/>
 </p>
 
 **MedAssistant-8B** is a LoRA fine-tuned LLM designed for advanced medical reasoning. The model is able to assist with medical diagnosis by providing detailed explanations in Chain of Thought (CoT). 
