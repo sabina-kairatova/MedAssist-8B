@@ -10,7 +10,7 @@
 
 ## Model
 
-- Model Access: 🤗 <a href="https://github.com/marketplace/models/azureml-meta/Meta-Llama-3-1-8B-Instruct">MedAssistant-8B</a>
+- Model Access: 🤗 <a href="https://huggingface.co/rare-engineer/MedAssistant-8B">MedAssistant-8B</a>
 - Deploy: below provided a example code for direct inference with MedAssistant-8B.
 
 ```python
@@ -21,7 +21,7 @@ model.eval()
 
 tokenizer = AutoTokenizer.from_pretrained('UCSC-VLAA/MedReason-8B', trust_remote_code=True, padding_side='left')
 
-input_text = "How to stop a cough?"
+input_text = "A 17-year-old girl presents to the emergency department with a headache. The patient has had headaches in the past but this is the worst headache of her life. Her symptoms started yesterday and have been getting progressively worse. The patient states that the pain is mostly on the left side of her head. There has been a recent outbreak of measles at the patient’s school and the patient’s mother has been trying to give her daughter medicine to prevent her from getting sick. Her mother fears that her daughter may have caught measles. Her temperature is 98.6°F (37°C), blood pressure is 123/74 mmHg, pulse is 85/min, and respirations are 13/min. On exam, the patient is an obese girl who is clutching her head with the light in the room turned off. Her neurological exam is within normal limits. Fundoscopic exam reveals mild bilateral papilledema. An MRI of the head is obtained and reveals cerebral edema. A lumbar puncture reveals an increased opening pressure with a normal glucose level. Which of the following is the most likely diagnosis? A: Bacterial meningitis, B: Fat-soluble vitamin overuse, C: Migraine headache, D: Subarachnoid hemorrhage, E: Viral meningitis"
 messages = [{"role": "user", "content": input_text}]
 
 inputs = tokenizer(tokenizer.apply_chat_template(messages, tokenize=False,add_generation_prompt=True), return_tensors="pt").to(model.device)
